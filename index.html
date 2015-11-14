@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Sight Reading</title>
+		<link rel="stylesheet" href="./css/master.css" media="screen" title="no title" charset="utf-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="javascripts/create_melody.js"></script>
+		<script type="text/javascript" src="javascripts/draw_melody.js"></script>
+		<script type="text/javascript" src="javascripts/play_melody_sound.js">
+
+		</script>
+	</head>
+	<body>
+		<canvas id="canvas" width="900" height="300"></canvas>
+		<button id="play" type="button" name="button">Play</button>
+
+		<form id="melody-form" class="melody-form" action="index.html" method="post">
+			<label for="tempo">Tempo</label>
+			<input id="tempo" type="number" min="20" max="140" step="1" value ="60"/>
+		</form>
+		<button id="new-melody" type="button" name="new-melody">Generate New Melody</button>
+
+		<div id="audio-els"></div>
+	</body>
+</html>
