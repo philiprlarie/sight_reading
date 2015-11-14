@@ -12,15 +12,17 @@
 		<script type="text/javascript" src="javascripts/initialize.js"></script>
 	</head>
 	<body>
-		<canvas id="canvas" width="900" height="300"></canvas>
-		<button id="play" type="button" name="button">Play</button>
+		<div class="sight-reading-holder">
+			<canvas id="canvas" width="900" height="300"></canvas>
+			<button id="play" type="button" name="button">Play</button>
 
-		<form id="melody-form" class="melody-form" action="index.html" method="post">
-			<label for="tempo">Tempo</label>
-			<input id="tempo" type="number" min="20" max="140" step="1" value ="60"/>
-		</form>
-		<button id="new-melody" type="button" name="new-melody">Generate New Melody</button>
+			<form id="melody-form" class="melody-form" action="index.html" method="post">
+				<label for="tempo">Tempo</label>
+				<input id="tempo" type="number" min="20" max="140" step="1" value ="60"/>
+			</form>
+			<button id="new-melody" type="button" name="new-melody">Generate New Melody</button>
 
-		<div id="audio-els"></div>
+			<div id="audio-els"></div>
+		</div>
 	</body>
 </html>
