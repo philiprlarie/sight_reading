@@ -2,10 +2,7 @@ $(function () {
 	if (typeof SightReading === "undefined") {
 		window.SightReading = {};
 	}
-	Array.prototype.sample = function () {
-		return this[Math.floor(Math.random() * this.length)];
-	};
-
+	
 	var Melody = SightReading.Melody = function () {
 		this.notes = [];
 		this.totDur = 0;

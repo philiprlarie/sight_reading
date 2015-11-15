@@ -1,4 +1,4 @@
 $(function () {
-	window.newMelody();
-	window.drawMelody();
+	SightReading.curMelody = new SightReading.Melody();
+	SightReading.drawMelody(SightReading.curMelody);
 });

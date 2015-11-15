@@ -1,8 +1,8 @@
 $(function () {
 	$("#new-melody").on("click", function (event) {
 		event.preventDefault();
-		window.newMelody();
-		window.drawMelody();
+		SightReading.curMelody = new SightReading.Melody();
+		window.drawMelody(SightReading.curMelody);
 	});
 	$("#play").on("click", function (event) {
 		event.preventDefault();

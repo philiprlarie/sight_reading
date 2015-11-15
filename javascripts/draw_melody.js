@@ -1,14 +1,17 @@
 $(function () {
-	var LINE_SPACING = 15; // pixels
-	var SIG_SPACE = 100; // pixels. this is space for key sig, time sig, cleffs
-
+	if (typeof SightReading === "undefined") {
+		window.SightReading = {};
+	}
 	var canvas = $("#canvas")[0];
 	var context = canvas.getContext("2d");
 
-	window.drawMelody = function () {
+	var LINE_SPACING = 15; // pixels
+	var SIG_SPACE = 100; // pixels. this is space for key sig, time sig, cleffs
+
+	SightReading.drawMelody = function (melody) {
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		drawStaff();
-		drawNotes();
+		drawNotes(melody);
 	};
 
 	function drawStaff () {
@@ -38,7 +41,7 @@ $(function () {
 		context.fillText("\uD834\uDD22", 2 * LINE_SPACING, canvas.height / 2 + 4.25 * LINE_SPACING);
 	}
 
-	function drawNotes () {
+	function drawNotes (melody) {
 		var numNotes = melody.notes.length;
 		context.fillStyle = "black";
 		context.textAlign = "center";
@@ -46,7 +49,7 @@ $(function () {
 		for (var i = 0; i < numNotes; i++) { // jshint ignore:line
 			var note = melody.notes[i];
 			var xPos = SIG_SPACE + (canvas.width - SIG_SPACE) * (i + 0.5) / numNotes;
-			var yPos = canvas.height / 2 - NOTE_POS[note] * LINE_SPACING / 2 + 0.245 * LINE_SPACING;
+			var yPos = canvas.height / 2 - SightReading.NOTE_POS[note.pitch] * LINE_SPACING / 2 + 0.245 * LINE_SPACING;
 			context.fillText("\u2669", xPos, yPos);
 
 			drawLedgerLines(note, xPos);
@@ -55,7 +58,7 @@ $(function () {
 
 	function drawLedgerLines (note, xPos) {
 		context.beginPath();
-		var notePos = NOTE_POS[note];
+		var notePos = SightReading.NOTE_POS[note.pitch];
 		xStart = xPos - LINE_SPACING * 1.2;
 		xStop = xPos + LINE_SPACING * 0.8;
 		// middle C
