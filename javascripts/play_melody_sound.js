@@ -1,8 +1,9 @@
+// SightReading.playMelodySound(melody). plays the melody audio
 $(function () {
-	window.disablePlay = false;
-	window.playMelodySound = function () {
-		if (disablePlay) { return; }
-		disablePlay = true;
+	SightReading.disablePlay = false;
+	SightReading.playMelodySound = function (melody) {
+		if (SightReading.disablePlay) { return; }
+		SightReading.disablePlay = true;
 		$("#audio-els").empty();
 		var i = 0;
 		var wholeNoteLength = 4000; // TODO get this from form
@@ -22,13 +23,14 @@ $(function () {
 		function playNextNote() {
 			if (i === melody.notes.length) {
 				clearInterval(metronomeID);
-				disablePlay = false;
+				SightReading.disablePlay = false;
 				return;
 			} else {
-				$("#audio-els").append("<audio src='note_mp3s/" + melody.notes[i] + ".mp3' data-note='" + melody.notes[i] + "'></audio>");
+				var note = melody.notes[i];
+				$("#audio-els").append("<audio src='note_mp3s/" + note.pitch + ".mp3' data-note='" + note.pitch + "'></audio>");
 				var curNote = $("#audio-els :last-child")[0];
 				curNote.play();
-				setTimeout(playNextNote, melody.durations[i] * wholeNoteLength);
+				setTimeout(playNextNote, note.dur * wholeNoteLength);
 			}
 			i++;
 		}

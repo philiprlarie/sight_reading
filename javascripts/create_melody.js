@@ -1,8 +1,10 @@
+// SightReading.Melody class. Creates a random melody with "new Melody();"
+// SightReading.Note class
 $(function () {
 	if (typeof SightReading === "undefined") {
 		window.SightReading = {};
 	}
-	
+
 	var Melody = SightReading.Melody = function () {
 		this.notes = [];
 		this.totDur = 0;

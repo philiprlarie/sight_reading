@@ -1,3 +1,4 @@
+// SightReading.drawMelody(melody). draws a melody on canvas when passed a melody
 $(function () {
 	if (typeof SightReading === "undefined") {
 		window.SightReading = {};

@@ -1,12 +1,15 @@
+// new melody button
+// play button
+// pressing pitch names along with up/down arrows for sharp/flats
 $(function () {
 	$("#new-melody").on("click", function (event) {
 		event.preventDefault();
 		SightReading.curMelody = new SightReading.Melody();
-		window.drawMelody(SightReading.curMelody);
+		SightReading.drawMelody(SightReading.curMelody);
 	});
 	$("#play").on("click", function (event) {
 		event.preventDefault();
-		window.playMelodySound();
+		SightReading.playMelodySound(SightReading.curMelody);
 	});
 	$(".sight-reading-holder").keypress(handleKeyPress);
 	$(".sight-reading-holder").keydown(handleKeyDown);
