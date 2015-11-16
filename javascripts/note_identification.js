@@ -10,13 +10,19 @@ $(function () {
 		if (SightReading.disableNoteIndentification) { return; }
 		SightReading.disableNoteIndentification = true;
 
+		// variables used in this function
 		var pressedNotes = SightReading.pressedNotes;
 		var notes = melody.notes;
+		var wholeNoteLength = 4000; // TODO get this from form
+		var countOffTime = wholeNoteLength;
+
+		// set initial state
 		for (var i = 0; i < notes.length; i++) {
 			notes[i].isPlayedCorrectly = undefined;
 		}
-		var wholeNoteLength = 4000; // TODO get this from form
-		var countOffTime = wholeNoteLength;
+		SightReading.drawMelody(melody);
+		SightReading.utils.updateScore(melody);
+
 		// set callbacks for the note event functions for each note
 		for (var i = 0; i < notes.length; i++) { // jshint ignore:line
 			setTimeout(checkNotePressed, countOffTime + notes[i].timing * wholeNoteLength + SightReading.TIMING_WINDOW / 2, notes[i]); // jshint ignore:line
