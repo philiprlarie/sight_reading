@@ -10,7 +10,8 @@ $(function () {
 	// clikc the new melody button
 	$("#new-melody").on("click", function (event) {
 		event.preventDefault();
-		SightReading.curMelody = new SightReading.Melody();
+		var cleff = $("form :radio:checked")[0].value;
+		SightReading.curMelody = new SightReading.Melody(cleff);
 		SightReading.drawMelody(SightReading.curMelody);
 	});
 	// click the play buttong

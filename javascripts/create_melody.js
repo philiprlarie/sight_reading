@@ -5,12 +5,24 @@ $(function () {
 		window.SightReading = {};
 	}
 
-	var Melody = SightReading.Melody = function () {
+	var Melody = SightReading.Melody = function (cleff) {
 		this.notes = [];
 		this.totDur = 0;
 		var i;
 		for (i = 0; i <= 15; i++) {
-			var note = new Note(SightReading.ALL_PITCHES.sample(), 1/4);
+			// TODO make options for which notes to use.
+			cleff = cleff || "both";
+			var note;
+			switch (cleff) {
+				case "treble":
+					note = new Note(SightReading.ALL_PITCHES.slice(13).sample(), 1/4);
+					break;
+				case "bass":
+					note = new Note(SightReading.ALL_PITCHES.slice(0,16).sample(), 1/4);
+					break;
+				default:
+					note = new Note(SightReading.ALL_PITCHES.sample(), 1/4);
+			}
 			this.addNote(note);
 		}
 	};
