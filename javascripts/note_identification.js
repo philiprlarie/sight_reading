@@ -30,7 +30,7 @@ $(function () {
 		function checkNotePressed(note) {
 			note.isPlayedCorrectly = !!pressedNotes[note.pitch.substr(0, note.pitch.length - 1)];
 			SightReading.utils.updateScore(melody);
-			return note.isPlayedCorrectly;
+			SightReading.drawMelody(melody);
 		}
 		function clearNotesPressed() {
 			for (var pitch in pressedNotes) {

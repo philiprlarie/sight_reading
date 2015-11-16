@@ -44,17 +44,26 @@ $(function () {
 
 	function drawNotes (melody) {
 		var numNotes = melody.notes.length;
-		context.fillStyle = "black";
 		context.textAlign = "center";
 		context.font = (4 * LINE_SPACING) + "px Ariel";
 		for (var i = 0; i < numNotes; i++) { // jshint ignore:line
 			var note = melody.notes[i];
 			var xPos = SIG_SPACE + (canvas.width - SIG_SPACE) * (i + 0.5) / numNotes;
 			var yPos = canvas.height / 2 - SightReading.NOTE_POS[note.pitch] * LINE_SPACING / 2 + 0.245 * LINE_SPACING;
-			context.fillText("\u2669", xPos, yPos);
-
+			switch (note.isPlayedCorrectly) {
+				case true:
+					context.fillStyle = "green";
+					break;
+				case false:
+					context.fillStyle = "red";
+					break;
+				default:
+					context.fillStyle = "black";
+			}
 			drawLedgerLines(note, xPos);
+			context.fillText("\u2669", xPos, yPos);
 		}
+		context.fillStyle = "black";
 	}
 
 	function drawLedgerLines (note, xPos) {
