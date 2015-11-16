@@ -2,25 +2,35 @@
 // play button
 // pressing pitch names along with up/down arrows for sharp/flats
 // SightReading.curMelody
+// SightReading.wholeNoteLength in miliseconds
 $(function () {
 	if (typeof SightReading === "undefined") {
 		window.SightReading = {};
 	}
+	// clikc the new melody button
 	$("#new-melody").on("click", function (event) {
 		event.preventDefault();
 		SightReading.curMelody = new SightReading.Melody();
 		SightReading.drawMelody(SightReading.curMelody);
 	});
+	// click the play buttong
 	$("#play").on("click", function (event) {
 		event.preventDefault();
 		SightReading.playMelodySound(SightReading.curMelody);
 		SightReading.noteIndentification(SightReading.curMelody);
 	});
+	// change the tempo and set its initial value. whole note length in miliseconds
+	SightReading.wholeNoteLength = 4 * 60 * 1000 / parseInt($("#tempo")[0].value);
+	$("#tempo").change(function(event) {
+		SightReading.wholeNoteLength = 4 * 60 * 1000 / parseInt($("#tempo")[0].value);
+	});
+
+
+	// pressing pitch names along with up/down arrows for sharp/flats
 	$(".sight-reading-holder").keypress(handleKeyPress);
 	$(".sight-reading-holder").keydown(handleKeyDown);
 	$(".sight-reading-holder").keyup(handleKeyUp);
 
-	// pressing pitch names along with up/down arrows for sharp/flats
 	SightReading.pressedNotes = {
 		Cb: false,
 		C: false,

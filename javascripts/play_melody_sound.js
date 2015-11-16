@@ -9,7 +9,7 @@ $(function () {
 		SightReading.disablePlay = true;
 		$("#audio-els").empty();
 		var i = 0;
-		var wholeNoteLength = 4000; // TODO get this from form
+		var wholeNoteLength = SightReading.wholeNoteLength;
 
 		// metronome
 		// tick from http://www.webmetronome.com/audio/tick.mp3

@@ -13,7 +13,7 @@ $(function () {
 		// variables used in this function
 		var pressedNotes = SightReading.pressedNotes;
 		var notes = melody.notes;
-		var wholeNoteLength = 4000; // TODO get this from form
+		var wholeNoteLength = SightReading.wholeNoteLength;
 		var countOffTime = wholeNoteLength;
 
 		// set initial state
