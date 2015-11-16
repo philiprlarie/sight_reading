@@ -19,6 +19,7 @@ $(function () {
 		this.pitch = pitch;
 		this.dur = dur;
 		this.timing = timing;
+		this.isPlayedCorrectly = undefined;
 	};
 
 	Melody.prototype.addNote = function (note) {

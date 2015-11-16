@@ -1,7 +1,11 @@
 // new melody button
 // play button
 // pressing pitch names along with up/down arrows for sharp/flats
+// SightReading.curMelody
 $(function () {
+	if (typeof SightReading === "undefined") {
+		window.SightReading = {};
+	}
 	$("#new-melody").on("click", function (event) {
 		event.preventDefault();
 		SightReading.curMelody = new SightReading.Melody();
@@ -10,12 +14,14 @@ $(function () {
 	$("#play").on("click", function (event) {
 		event.preventDefault();
 		SightReading.playMelodySound(SightReading.curMelody);
+		SightReading.noteIndentification(SightReading.curMelody);
 	});
 	$(".sight-reading-holder").keypress(handleKeyPress);
 	$(".sight-reading-holder").keydown(handleKeyDown);
 	$(".sight-reading-holder").keyup(handleKeyUp);
 
-	window.pressedNotes = {
+	// pressing pitch names along with up/down arrows for sharp/flats
+	SightReading.pressedNotes = {
 		Cb: false,
 		C: false,
 		Cs: false,
@@ -46,8 +52,8 @@ $(function () {
 		} else if (arrowsUpDown.downArrow) {
 			letter += "b";
 		}
-		if (letter in pressedNotes) {
-			pressedNotes[letter] = true;
+		if (letter in SightReading.pressedNotes) {
+			SightReading.pressedNotes[letter] = true;
 		}
 	}
 

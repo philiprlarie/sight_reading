@@ -1,8 +1,11 @@
+// SightReading.ALL_PITCHES  array
+// SightReading.NOTE_POS hash
+// Array.prototype.sample()
 $(function () {
 	if (typeof SightReading === "undefined") {
 		window.SightReading = {};
 	}
-
+	var utils = SightReading.utils = {};
 	// two constants. ALL_PITCHES and NOTE_POS
 	SightReading.ALL_PITCHES = [];
 	var letters = ["C", "D", "E", "F", "G", "A", "B"];
@@ -23,4 +26,12 @@ $(function () {
 		return this[Math.floor(Math.random() * this.length)];
 	};
 
+	SightReading.utils.updateScore = function (melody) {
+		melody = melody || SightReading.curMelody;
+		var score = 0;
+		for (var i = 0; i < melody.notes.length; i++) {
+			if (melody.notes[i].isPlayedCorrectly) { score++; }
+		}
+		$("#score").html(score + "/" + melody.notes.length);
+	};
 });

@@ -1,5 +1,8 @@
 // SightReading.playMelodySound(melody). plays the melody audio
 $(function () {
+	if (typeof SightReading === "undefined") {
+		window.SightReading = {};
+	}
 	SightReading.disablePlay = false;
 	SightReading.playMelodySound = function (melody) {
 		if (SightReading.disablePlay) { return; }
