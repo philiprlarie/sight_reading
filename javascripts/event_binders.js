@@ -20,6 +20,17 @@ $(function () {
 		SightReading.playMelodySound(SightReading.curMelody);
 		SightReading.noteIndentification(SightReading.curMelody);
 	});
+	$("#stop").on("click", function (event) {
+		event.preventDefault();
+		var id = window.setTimeout(function() {}, 0);
+
+		while (id--) {
+		    window.clearTimeout(id); // will do nothing if no timeout with id is present
+		}
+		SightReading.disablePlay = false;
+		SightReading.disableNoteIndentification = false;
+	});
+
 	// change the tempo and set its initial value. whole note length in miliseconds
 	SightReading.wholeNoteLength = 4 * 60 * 1000 / parseInt($("#tempo")[0].value);
 	$("#tempo").change(function(event) {

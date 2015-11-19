@@ -10,7 +10,6 @@ $(function () {
 		this.totDur = 0;
 		var i;
 		for (i = 0; i <= 15; i++) {
-			// TODO make options for which notes to use.
 			cleff = cleff || "both";
 			var note;
 			switch (cleff) {

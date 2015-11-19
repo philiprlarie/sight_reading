@@ -9,7 +9,6 @@ $(function () {
 	SightReading.noteIndentification = function (melody) {
 		if (SightReading.disableNoteIndentification) { return; }
 		SightReading.disableNoteIndentification = true;
-
 		// variables used in this function
 		var pressedNotes = SightReading.pressedNotes;
 		var notes = melody.notes;
