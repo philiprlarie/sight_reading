@@ -23,17 +23,23 @@ $(function () {
 		$("#audio-els").append("<audio src='note_mp3s/tick.mp3'></audio>");
 		var tick = $("#audio-els :last-child")[0];
 		tick.play();
+		var ticksCount = 1;
+		// play 20 clicks. 4 four count off. 16 for duration of melody
 		var metronomeID = window.setInterval(function () {
-			tick.play();
+			if (ticksCount >= 20) {
+				clearInterval(metronomeID);
+			} else {
+				tick.play();
+				ticksCount++;
+			}
 		}, wholeNoteLength / 4);
 
-		// four ticks before notes then play notes
+		// time for count off (4 clicks)
 		setTimeout(playNextNote, wholeNoteLength);
 
 		var j = 0;
 		function playNextNote() {
 			if (j === melody.notes.length) {
-				clearInterval(metronomeID);
 				SightReading.disablePlay = false;
 				return;
 			} else {
