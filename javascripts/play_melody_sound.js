@@ -1,53 +1,45 @@
 // SightReading.playMelodySound(melody). plays the melody audio
-$(function () {
-	if (typeof SightReading === "undefined") {
-		window.SightReading = {};
-	}
-	SightReading.disablePlay = false;
-	SightReading.playMelodySound = function (melody) {
-		if (SightReading.disablePlay) { return; }
-		SightReading.disablePlay = true;
-		$("#audio-els").empty();
-		var wholeNoteLength = SightReading.wholeNoteLength;
+var SightReading = window.SightReading;
 
+SightReading.disablePlay = false;
+SightReading.playMelodySound = function (melody) {
+  if (SightReading.disablePlay) {
+    return;
+  }
+  SightReading.disablePlay = true;
+  $('#audio-els').empty();
+  var wholeNoteLength = SightReading.wholeNoteLength;
 
-		var notesEls = [];
-		for (var i = 0; i < melody.notes.length; i++) {
-			var note = melody.notes[i];
-			$("#audio-els").append("<audio src='note_mp3s/" + note.pitch + ".mp3' data-note='" + note.pitch + "'></audio>");
-			notesEls.push($("#audio-els :last-child")[0]);
-		}
+  // tick from http://www.webmetronome.com/audio/tick.mp3
+  var tick = $('#audio-click audio')[0];
+  var notesEls = [];
+  for (var i = 0; i < melody.notes.length; i++) {
+    var note = melody.notes[i];
+    $('#audio-els').append('<audio src="note_mp3s/' + note.pitch + '.mp3" data-note="' + note.pitch + '"></audio>');
+    notesEls.push($('#audio-els :last-child')[0]);
+  }
 
-		// metronome
-		// tick from http://www.webmetronome.com/audio/tick.mp3
-		$("#audio-els").append("<audio src='note_mp3s/tick.mp3'></audio>");
-		var tick = $("#audio-els :last-child")[0];
-		tick.play();
-		var ticksCount = 1;
-		// play 20 clicks. 4 four count off. 16 for duration of melody
-		var metronomeID = window.setInterval(function () {
-			if (ticksCount >= 20) {
-				clearInterval(metronomeID);
-			} else {
-				tick.play();
-				ticksCount++;
-			}
-		}, wholeNoteLength / 4);
+  var ticksCount = 0;
+  var startTime = new Date().getTime();
+  function playNextNote () {
+    var elapsedTime = ticksCount * 1 / 4 * wholeNoteLength;
+    // https://www.sitepoint.com/creating-accurate-timers-in-javascript/
+    var diff = (new Date().getTime() - startTime) - elapsedTime;
 
-		// time for count off (4 clicks)
-		setTimeout(playNextNote, wholeNoteLength);
+    if (ticksCount >= melody.notes.length + 4) {
+      SightReading.disablePlay = false;
+      return;
+    } else if (ticksCount < 4) {
+      tick.play();
+      ticksCount++;
+      setTimeout(playNextNote, 1 / 4 * wholeNoteLength - diff);
+    } else {
+      // var note = melody.notes[ticksCount - 4];
+      notesEls[ticksCount - 4].play();
+      ticksCount++;
+      setTimeout(playNextNote, note.dur * wholeNoteLength - diff);
+    }
+  }
 
-		var j = 0;
-		function playNextNote() {
-			if (j === melody.notes.length) {
-				SightReading.disablePlay = false;
-				return;
-			} else {
-				var note = melody.notes[j];
-				notesEls[j].play();
-				setTimeout(playNextNote, note.dur * wholeNoteLength);
-			}
-			j++;
-		}
-	};
-});
+  playNextNote();
+};
